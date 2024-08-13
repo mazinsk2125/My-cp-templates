@@ -121,3 +121,65 @@ public:
         seg[ind] = min(seg[2 * ind + 1], seg[2 * ind + 2]);
     }
 };
+
+#define ll long long
+
+class RangeMaxQuery
+{
+public:
+    vector<ll> seg;
+
+    RangeMaxQuery(int n)
+    {
+        seg.resize(4 * n + 1, LLONG_MIN);
+    }
+
+    void build(int ind, int low, int high, vector<ll> &arr)
+    {
+        if (low == high)
+        {
+            seg[ind] = arr[low];
+            return;
+        }
+
+        int mid = (low + high) >> 1;
+
+        build(2 * ind + 1, low, mid, arr);
+        build(2 * ind + 2, mid + 1, high, arr);
+
+        seg[ind] = max(seg[2 * ind + 1], seg[2 * ind + 2]);
+    }
+
+    ll query(int ind, int low, int high, int l, int r)
+    {
+        if (r < low || high < l)
+            return LLONG_MIN;
+
+        if (low >= l && high <= r)
+            return seg[ind];
+
+        int mid = (low + high) >> 1;
+        ll left = query(2 * ind + 1, low, mid, l, r);
+        ll right = query(2 * ind + 2, mid + 1, high, l, r);
+
+        return max(left, right);
+    }
+
+    void update(int ind, int low, int high, int i, ll val)
+    {
+        if (low == high)
+        {
+            seg[ind] = val;
+            return;
+        }
+
+        int mid = (low + high) >> 1;
+
+        if (i <= mid)
+            update(2 * ind + 1, low, mid, i, val);
+        else
+            update(2 * ind + 2, mid + 1, high, i, val);
+
+        seg[ind] = max(seg[2 * ind + 1], seg[2 * ind + 2]);
+    }
+};

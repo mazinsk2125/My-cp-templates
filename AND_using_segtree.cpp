@@ -1,4 +1,5 @@
 // 3209. Number of Subarrays With AND Value of K
+// https://leetcode.com/submissions/detail/1344411639/
 void build(int i, int low, int high, vector<int> &seg, vector<int> &arr)
 {
     if (low > high)
