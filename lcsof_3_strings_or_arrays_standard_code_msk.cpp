@@ -1,6 +1,6 @@
 // https : // www.geeksforgeeks.org/problems/lcs-of-three-strings0028/1
 // Given 3 strings A, B and C, the task is to find the length of the longest sub-sequence that is common in all the three given strings.
-
+//standard template tabulation dp
 // Example 1:
 
 // Input:
